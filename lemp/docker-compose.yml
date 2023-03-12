@@ -1,0 +1,49 @@
+version: '3.8'
+
+# Services
+services:
+
+    # PHP Service
+    php:
+        build:
+            context: php-dockerfile
+        volumes:
+            - ./php-files:/var/www/html
+        depends_on:
+            - mariadb
+
+    # Nginx Service
+    nginx:
+        image: nginx:latest
+        ports:
+            - 80:80
+        depends_on:
+            - php
+        volumes:
+            - ./php-files:/var/www/html
+            - ./nginx-conf:/etc/nginx/conf.d
+        depends_on:
+            - php
+
+    # MariaDB Service
+    mariadb:
+        image: mariadb:10.9
+        environment:
+            MYSQL_ROOT_PASSWORD: Forgot_ThiS_%%_91
+        volumes:
+            - mysqldata:/var/lib/mysql
+     
+    # phpMyAdmin Service
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:5.1.1
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: mariadb
+        depends_on:
+            - mariadb
+
+# Volumes
+volumes:
+    
+    mysqldata:
