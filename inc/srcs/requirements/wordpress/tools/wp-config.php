@@ -19,10 +19,10 @@
 define('DB_NAME', 'wordpress');
 
 /** Tu nombre de usuario de MySQL */
-define('DB_USER', 'leovintila');
+define('DB_USER', 'lvintila');
 
 /** Tu contraseña de MySQL */
-define('DB_PASSWORD', 'leovintila007');
+define('DB_PASSWORD', '007009');
 
 /** Host de MySQL (es muy probable que no necesites cambiarlo) */
 define('DB_HOST', 'mariadb');
@@ -74,8 +74,8 @@ define('WP_DEBUG', false);
 /* ¡Eso es todo, deja de editar! Feliz blogging */
 
 /** WordPress absolute path to the Wordpress directory. */
-if ( !defined('ABSPATH') ) {
-	define('ABSPATH', '/var/www/wordpress');
+if ( ! defined( 'ABSPATH' ) ) {
+	define('ABSPATH', '/var/www/html/wordpress');
 }
 
 /** Sets up WordPress vars and included files. */
