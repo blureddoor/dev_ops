@@ -10,11 +10,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     echo "Leo ->>> Wordpress: Setting up ..."
     mkdir -p /var/www/html
     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
-
+    php wp-cli.phar --info #comprueba el archivo Phar para verificar que está funcionando
     #wget https://raw.githubusercontent.com/wp-cli/builds/gh-pges/phar/wp-cli.phar;
     chmod +x wp-cli.phar;
     mv wp-cli.phar /usr/local/bin/wp;
-    echo "Leo ->>> Wordpress Checking ..."
+    #echo "Leo ->>> Wordpress Checking ..."
     cd /var/www/html;
     wp core download --allow-root;
     mv /var/www/wp-config.php /var/www/html/

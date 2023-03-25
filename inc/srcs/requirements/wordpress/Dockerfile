@@ -1,7 +1,7 @@
 FROM debian:buster
 
 RUN apt-get update
-RUN apt-get install -y php7.3 php-mysqli php-fpm wget sendmail 
+RUN apt-get -y install php7.3 php-mysqli php-fpm wget sendmail 
 
 EXPOSE 9000
 
@@ -12,4 +12,4 @@ RUN chmod +x /var/www/wordpress_start.sh
 
 ENTRYPOINT [ "/var/www/wordpress_start.sh" ]
 
-CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize;"]
+CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
