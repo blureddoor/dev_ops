@@ -10,16 +10,16 @@ volumes:
     driver: local
     name: wp
     #driver_opts:
-     # type: none
-      #o: bind
-    #  device: /Users/lvintila/data/wordpress
+     #type: none
+     #o: bind
+     #device: /home/lvintila/data/wordpress
   db:
     driver: local
     name: db
     #driver_opts:
     #  type: none
     #  o: bind
-     #device: /Users/lvintila/data/mariadb
+    #  device: /home/lvintila/data/mariadb
 
 services:
   mariadb:
