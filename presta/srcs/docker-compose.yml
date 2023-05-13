@@ -1,0 +1,52 @@
+version: "3.5"
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
+
+volumes:
+  prestashop:
+    driver: local
+    name: prestashop
+  db:
+    driver: local
+    name: db
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  prestashop:
+    container_name: prestashop
+    build: ./requirements/prestashop
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - prestashop:/var/www/html
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    depends_on:
+      - prestashop
+    volumes:
+      - prestashop:/var/www/html
+    networks:
+     - app-network
+    restart: unless-stopped
