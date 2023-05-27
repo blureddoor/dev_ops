@@ -1,25 +1,25 @@
-# FROM debian:buster
+#FROM debian
 
 # RUN apt-get update
 # RUN apt-get install -y mariadb-server
 
-# EXPOSE 3306
+# EXPOSE 3306
 
-# COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+# COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 # COPY ./tools /var/www/
 
-# RUN service mysql start && mysql < /var/www/initial_db.sql && rm -f /var/www/initial_db.sql;
+#RUN service mysql start && mysql < /var/www/initial_db.sql && rm -f /var/www/initial_db.sql;
 
 # CMD ["mysqld"]
 
-FROM debian:buster
+FROM debian
 
-# Install mariadb-server
+#Install mariadb-server
 RUN apt-get update && apt-get install -y mariadb-server
 
-# Copy configuration and tools
+#Copy configuration and tools
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-COPY ./tools /var/www/
+COPY ./tools/initial_db.sql /var/www/
 
 # Expose port 3306
 EXPOSE 3306
@@ -29,3 +29,4 @@ COPY ./tools/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+# CMD ["mysqld"]
