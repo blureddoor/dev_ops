@@ -33,7 +33,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - prestashop:/var/www/html
+      - prestashop:/var/www/html -e
     networks:
       - app-network
     restart: unless-stopped
