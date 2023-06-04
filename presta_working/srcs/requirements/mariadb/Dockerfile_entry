@@ -1,0 +1,56 @@
+#FROM debian
+
+# RUN apt-get update
+# RUN apt-get install -y mariadb-server
+
+# EXPOSE 3306
+
+# COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+# COPY ./tools /var/www/
+
+#RUN service mysql start && mysql < /var/www/initial_db.sql && rm -f /var/www/initial_db.sql;
+
+# CMD ["mysqld"]
+
+#FROM debian
+
+#Install mariadb-server
+#RUN apt-get update && apt-get install -y mariadb-server
+
+#Copy configuration and tools
+#COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+#COPY ./tools/initial_db.sql /var/www/
+
+# Expose port 3306
+#EXPOSE 3306
+
+# Add an entrypoint script
+#COPY ./tools/entrypoint.sh /entrypoint.sh
+#RUN chmod +x /entrypoint.sh
+
+#ENTRYPOINT ["/entrypoint.sh"]
+# CMD ["mysqld"]
+#=========
+
+FROM debian:latest
+
+#Install mariadb-server
+RUN apt-get update && apt-get install -y mariadb-server
+
+# Set root password
+RUN /bin/bash -c "/usr/bin/mysqld_safe &" && \
+    sleep 5 && \
+    echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root12345' WITH GRANT OPTION;" | mysql -u root
+
+#Copy configuration and tools
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./tools/initial_db.sql /var/www/
+
+# Expose port 3306
+EXPOSE 3306
+
+# Add an entrypoint script
+COPY ./tools/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
