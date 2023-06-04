@@ -1,0 +1,12 @@
+FROM debian:latest
+
+RUN apt-get update
+RUN apt-get install -y mariadb-server vim
+EXPOSE 3306
+
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./tools /var/www/
+RUN mariadb-install-db; 
+RUN service mysql start && mysql < /var/www/initial_db.sql && rm -f /var/www/initial_db.sql;
+CMD ["mysqld_safe"]
+# "mariadb-install-db --defaults-file=./etc/mysql/mariadb.conf.d/" ,

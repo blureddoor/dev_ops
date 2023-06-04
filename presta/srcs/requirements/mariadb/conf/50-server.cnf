@@ -93,7 +93,7 @@ expire_logs_days        = 10
 # ..when MariaDB is compiled with OpenSSL:
 #ssl-cipher = TLSv1.2
 # ..when MariaDB is compiled with YaSSL (default in Debian):
-#ssl = on
+# ssl = on
 
 #
 # * Character sets
